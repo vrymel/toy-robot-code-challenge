@@ -58,5 +58,5 @@ class Robot:
 
         self.location = (x, y)
 
-    def report(self):
-        print(f'Robot is at location {self.location} and facing {self.facing}')
+    def __repr__(self):
+        return f'Robot is at location {self.location} and facing {self.facing}'

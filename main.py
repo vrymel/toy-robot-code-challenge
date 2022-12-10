@@ -40,7 +40,7 @@ def main():
         elif cmd == 'move':
             robot.move()
         elif cmd == 'report':
-            robot.report()
+            print(robot)
         else:
             # only show invalid message if the robot is ready.
             if robot.is_ready():
