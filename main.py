@@ -9,11 +9,6 @@ class Direction(Enum):
     WEST = 3
 
 
-class Dimension:
-    def __init__(self, dimensions=(5, 5)):
-        self.dimensions = dimensions
-
-
 class Robot:
     def __init__(self, move_range=(5, 5)):
         self.location = None
@@ -21,7 +16,7 @@ class Robot:
         self.move_range = move_range
 
     def is_ready(self):
-        return self.location is not None
+        return (self.location is not None) and (self.facing is not None)
 
     def place(self, x, y, facing):
         if self.is_out_of_bounds(x, y):
@@ -54,6 +49,26 @@ class Robot:
 
         self.facing = Direction(target_direction)
 
+    def move(self):
+        x, y = self.location
+        if self.facing == Direction.NORTH:
+            y = y + 1
+        elif self.facing == Direction.SOUTH:
+            y = y - 1
+        elif self.facing == Direction.WEST:
+            x = x - 1
+        elif self.facing == Direction.EAST:
+            x = x + 1
+
+        if self.is_out_of_bounds(x, y):
+            print('Robot can\'t move beyond range')
+            return
+
+        self.location = (x, y)
+
+    def report(self):
+        print(f'Robot is at location {self.location} and facing {self.facing}')
+
 
 def main():
     robot = Robot()
@@ -64,8 +79,6 @@ def main():
         'east': Direction.EAST,
         'west': Direction.WEST,
     }
-
-    # todo: discard all commands in the sequence until a valid PLACE command has been executed
 
     while True:
         cmd = input('robot command: ').lower().strip()
@@ -90,7 +103,7 @@ def main():
         if cmd == 'right':
             robot.turn_right()
         if cmd == 'move':
-            pass
+            robot.move()
         if cmd == 'report':
             robot.report()
 
