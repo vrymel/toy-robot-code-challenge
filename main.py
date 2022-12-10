@@ -92,7 +92,8 @@ def main():
             placed, message = robot.place(x, y, direction_map[facing])
             if not placed:
                 print(message)
-                continue
+
+            continue
 
         if not robot.is_ready():
             print('Robot not placed. Do a PLACE X,Y,F command first.')
@@ -100,12 +101,21 @@ def main():
 
         if cmd == 'left':
             robot.turn_left()
-        if cmd == 'right':
+        elif cmd == 'right':
             robot.turn_right()
-        if cmd == 'move':
+        elif cmd == 'move':
             robot.move()
-        if cmd == 'report':
+        elif cmd == 'report':
             robot.report()
+        else:
+            # only show invalid message if the robot is ready.
+            if robot.is_ready():
+                print('Invalid command. Only the following commands are allowed:')
+                print('PLACE X,Y,F')
+                print('MOVE')
+                print('LEFT')
+                print('RIGHT')
+                print('REPORT')
 
 
 if __name__ == '__main__':
