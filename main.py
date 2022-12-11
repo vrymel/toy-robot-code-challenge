@@ -29,6 +29,10 @@ def main():
 
             continue
 
+        if cmd == 'shutdown':
+            print('shutting down...')
+            exit()
+
         if not robot.is_ready():
             print('Robot not placed. Do a PLACE X,Y,F command first.')
             continue
